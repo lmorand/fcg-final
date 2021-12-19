@@ -5,7 +5,7 @@ class Ray:
 		self.dir = direction
 
 	def at(self, t):
-		return orig + t * dir
+		return self.orig + t * self.dir
 	
 	def origin(self):
 		return self.orig
