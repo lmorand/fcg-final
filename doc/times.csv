@@ -1,0 +1,6 @@
+output,samples_per_pixel,max_depth,time
+0,10,50,null
+1,100,5,null
+2,100,5,null
+3,100,5,9m29.816s
+4,100,10,9m44.669s
