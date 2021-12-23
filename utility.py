@@ -13,6 +13,12 @@ def Point3(u, v, w):
 def unit_vector(vec):
 	return vec / np.linalg.norm(vec)
 
+def near_zero(vec):
+	return np.allclose(vec, np.zeros(3))
+
+def reflect(v, n):
+	return v - 2*np.dot(v,n)*n
+
 def random_in_unit_sphere():
 	while True:
 		p = rng.uniform(-1.0, 1.0, 3)

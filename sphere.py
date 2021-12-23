@@ -3,9 +3,10 @@ from hittable import Hittable
 
 class Sphere(Hittable):
 
-	def __init__(self, center, radius):
+	def __init__(self, center, radius, material):
 		self.center = center
 		self.radius = radius
+		self.material = material
 
 	def hit(self, r, t_min, t_max):
 		def get_face_normal():
@@ -34,4 +35,4 @@ class Sphere(Hittable):
 		t = root
 		p = r.at(t)
 
-		return t, p, *get_face_normal()
+		return t, p, *get_face_normal(), self.material
