@@ -19,6 +19,12 @@ def near_zero(vec):
 def reflect(v, n):
 	return v - 2*np.dot(v,n)*n
 
+def refract(uv, n, etai_over_etat):
+	cos_theta = min(np.dot(-uv, n), 1.0)
+	r_out_perp =  etai_over_etat * (uv + cos_theta*n)
+	r_out_parallel = -np.sqrt(abs(1.0 - np.dot(r_out_perp, r_out_perp))) * n
+	return r_out_perp + r_out_parallel
+
 def random_in_unit_sphere():
 	while True:
 		p = rng.uniform(-1.0, 1.0, 3)
@@ -30,11 +36,11 @@ def random_unit_vector():
 	return unit_vector(random_in_unit_sphere())
 
 def random_in_hemisphere(normal):
-    in_unit_sphere = random_in_unit_sphere()
-    if np.dot(in_unit_sphere, normal) > 0.0: # In the same hemisphere as the normal
-        return in_unit_sphere
-    else:
-        return -in_unit_sphere
+	in_unit_sphere = random_in_unit_sphere()
+	if np.dot(in_unit_sphere, normal) > 0.0: # In the same hemisphere as the normal
+		return in_unit_sphere
+	else:
+		return -in_unit_sphere
 
 def format_color(pixel_color, samples_per_pixel):
 	# Divide the color by the number of samples and gamma-correct for gamma=2.0.

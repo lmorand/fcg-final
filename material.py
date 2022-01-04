@@ -45,3 +45,33 @@ class Metal(Material):
 	
 	# def reflect(self, v, n):
 	# 	return v - 2*np.dot(v,n)*n
+
+class Dielectric(Material):
+
+	def __init__(self, index_of_refraction):
+		self.ir = index_of_refraction
+
+	def scatter(self, r_in, hit_rec):
+		p, normal, front_face = hit_rec[1:4]
+		refraction_ratio = (1.0/self.ir) if front_face else self.ir
+
+		unit_direction = unit_vector(r_in.direction())
+		cos_theta = min(np.dot(-unit_direction, normal), 1.0)
+		sin_theta = np.sqrt(1.0 - cos_theta**2)
+
+		cannot_refract = refraction_ratio * sin_theta > 1.0
+
+		if (cannot_refract or self.reflectance(cos_theta, refraction_ratio) > rng.random()):
+			direction = reflect(unit_direction, normal)
+		else:
+			direction = refract(unit_direction, normal, refraction_ratio)
+
+		scattered = Ray(p, direction)
+		attenuation = Color(1.0, 1.0, 1.0)
+		return scattered, attenuation
+	
+	def reflectance(self, cosine, ref_idx):
+		# Use Schlick's approximation for reflectance.
+		r0 = (1-ref_idx) / (1+ref_idx)
+		r0 = r0**2
+		return r0 + (1-r0)*(1 - cosine)**5

@@ -6,7 +6,7 @@ from utility import *
 from sphere import Sphere
 from hittable_list import HittableList
 from camera import Camera
-from material import Lambertian, Metal
+from material import *
 
 def ray_color(ray, world, depth):
 	# If we've exceeded the ray bounce limit, no more light is gathered.
@@ -54,13 +54,14 @@ if __name__ == "__main__":
 	world = HittableList()
 
 	material_ground = Lambertian(Color(0.8, 0.8, 0.0))
-	material_center = Lambertian(Color(0.7, 0.3, 0.3))
-	material_left   = Metal(Color(0.8, 0.8, 0.8), 0.3)
-	material_right  = Metal(Color(0.8, 0.6, 0.2), 1.0)
+	material_center = Lambertian(Color(0.1, 0.2, 0.5))
+	material_left   = Dielectric(1.5)
+	material_right  = Metal(Color(0.8, 0.6, 0.2), 0.0)
 
 	world.add(Sphere(Point3(0,0,-1), 0.5, material_center))
 	world.add(Sphere(Point3(0,-100.5,-1), 100, material_ground))
 	world.add(Sphere(Point3(-1.0,0.0,-1.0), 0.5, material_left))
+	world.add(Sphere(Point3(-1.0,0.0,-1.0), -0.4, material_left))
 	world.add(Sphere(Point3(1.0,0.0,-1.0), 0.5, material_right))
 
 	cam = Camera()
