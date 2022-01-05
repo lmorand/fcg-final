@@ -61,10 +61,10 @@ if __name__ == "__main__":
 	world.add(Sphere(Point3(0,0,-1), 0.5, material_center))
 	world.add(Sphere(Point3(0,-100.5,-1), 100, material_ground))
 	world.add(Sphere(Point3(-1.0,0.0,-1.0), 0.5, material_left))
-	world.add(Sphere(Point3(-1.0,0.0,-1.0), -0.4, material_left))
+	world.add(Sphere(Point3(-1.0,0.0,-1.0), -0.45, material_left))
 	world.add(Sphere(Point3(1.0,0.0,-1.0), 0.5, material_right))
 
-	cam = Camera()
+	cam = Camera(Point3(-2,2,1), Point3(0,0,-1), Vec3(0,1,0), 20, aspect_ratio)
 	image = []
 	n_procs = 8
 
