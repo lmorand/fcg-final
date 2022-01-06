@@ -42,6 +42,13 @@ def random_in_hemisphere(normal):
 	else:
 		return -in_unit_sphere
 
+def random_in_unit_disk():
+	while True:
+		p = Vec3(rng.uniform(-1,1), rng.uniform(-1,1), 0)
+		if np.dot(p,p) >= 1:
+			continue
+		return p
+
 def format_color(pixel_color, samples_per_pixel):
 	# Divide the color by the number of samples and gamma-correct for gamma=2.0.
 	scaled_pixel_color = np.sqrt(pixel_color / samples_per_pixel)

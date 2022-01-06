@@ -64,7 +64,13 @@ if __name__ == "__main__":
 	world.add(Sphere(Point3(-1.0,0.0,-1.0), -0.45, material_left))
 	world.add(Sphere(Point3(1.0,0.0,-1.0), 0.5, material_right))
 
-	cam = Camera(Point3(-2,2,1), Point3(0,0,-1), Vec3(0,1,0), 20, aspect_ratio)
+	lookfrom = Point3(3,3,2)
+	lookat = Point3(0,0,-1)
+	vup = Vec3(0,1,0)
+	dist_to_focus = np.linalg.norm(lookfrom-lookat)
+	aperture = 2.0
+
+	cam = Camera(lookfrom, lookat, vup, 20, aspect_ratio, aperture, dist_to_focus)
 	image = []
 	n_procs = 8
 
